@@ -1,0 +1,98 @@
+<div class="row">
+	<div class="col-md-1"></div>
+	<div class="col-md-10">
+		<form class="form-inline text-left" name="editForm">
+			<h3 ng-show="isEdition"  class="text-center" translate="label.class.edit.user"></h3>
+			<h3 ng-show="isCreation" class="text-center" translate="label.class.create.user"></h3>
+			<h3 ng-show="isDeletion" class="text-center" translate="label.class.delete.user"></h3>
+			<h3 ng-show="isView"     class="text-center" translate="label.class.singular.user"></h3>			
+			<fieldset ng-show="dataReceived">
+				<div class="row">
+					<div class="form-group col-md-4">
+						<label for="inputName">Name</label>
+						<input id="inputName" 
+							   name="inputName"
+							   type="text" 
+							   class="form-control" 
+							   placeholder="Name" 
+							   ng-model="obj.name" 
+							   ng-readonly="readOnly"
+							   required autofocus />
+					</div>
+					<div class="form-group col-md-4">
+						<label for="inputLastname">Lastname</label>
+						<input id="inputLastname" 
+							   name="inputLastname"
+							   type="text" 
+							   class="form-control" 
+							   placeholder="Lastname" 
+							   ng-model="obj.lastname" 
+							   ng-readonly="readOnly"
+							   required />
+					</div>
+					<div class="form-group col-md-4">
+						<label for="inputAge">Age</label>
+						<input id="inputAge" 
+						       name="inputAge"
+							   type="number"
+							   step="1" 
+							   class="form-control" 
+							   placeholder="Age" 
+							   ng-model="obj.age" 
+							   ng-readonly="readOnly"
+							    />
+					</div>
+					<div class="checkbox col-md-4">
+						<label for="inputIsActive" class="checkbox">
+							<input id="inputIsActive" 
+							       name="inputIsActive"
+								   type="checkbox" 
+								   ng-model="obj.isActive" 
+								   ng-readonly="readOnly"
+								   />
+							<span>IsActive</span>
+						</label>
+					</div>
+				</div>
+			</fieldset>
+
+			<div class="row">	
+				<error-zone ng-model="errors"></error-zone>
+			</div>
+
+			<div ng-hide="dataReceived" class="loader"><img src="images/loader.gif" alt="Loading..." /></div>
+			<div ng-show="uiWorking" class="loader"><img src="images/loader.gif" alt="Working..." /></div>
+
+			<div class="row acc-buttons">
+				<button ng-show="isView" class="btn" ng-click="cancel($event)">
+					<span class="glyphicon glyphicon-chevron-left"></span>
+					<span translate="cmd.back"></span>
+				</button>
+				<button ng-show="isCreation" class="btn btn-primary" ng-click="add()" ng-disabled="editForm.$invalid" >
+					<span class="glyphicon glyphicon-plus"></span>
+					<span translate="cmd.create"></span>
+				</button>
+				<button ng-show="isEdition" class="btn btn-primary" ng-click="update()" ng-disabled="editForm.$invalid" >
+					<span class="glyphicon glyphicon-save"></span>
+					<span translate="cmd.update"></span>
+				</button>
+				<button ng-show="isDeletion" class="btn btn-primary" ng-click="delete()" ng-disabled="editForm.$invalid" >
+					<span class="glyphicon glyphicon-trash"></span>
+					<span translate="cmd.delete"></span>
+				</button>
+				<button ng-show="isView" class="btn btn-primary" ng-click="gotoEdit()" ng-disabled="editForm.$invalid" >
+					<span class="glyphicon glyphicon-pencil"></span>
+					<span translate="cmd.modify"></span>
+				</button>
+				<button ng-hide="isView" class="btn" ng-click="cancel($event)">
+					<span translate="cmd.cancel"></span>
+				</button>
+				<button ng-show="isView" class="btn btn-primary pull-right" ng-click="gotoDelete()" ng-disabled="editForm.$invalid" >
+					<span class="glyphicon glyphicon-trash"></span>
+					<span translate="cmd.confirmDeletion"></span>
+				</button>					
+			</div>
+		</form>
+	</div>
+	<div class="col-md-1"></div>
+</div>

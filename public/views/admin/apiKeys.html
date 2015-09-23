@@ -1,0 +1,93 @@
+<img class="adminLogo" src="/images/adminKey.png"/>
+<div class="row row-conf">
+	<div class="col-md-1"></div>
+	<div class="col-md-10">
+		<h3 class="text-center" translate="apikeys.title"></h3>
+		<p translate="apikeys.summary"></p>
+
+		<h4 translate="apikeys.users"></h4>
+		<div class="row">
+			<div class="col-md-6">
+
+				<table class="wbTable data-tabe table table-hover table-striped table-condensed">
+					<thead>
+						<th class="md-col-5" translate="apikeys.field.user"></th>
+						<th class="md-col-2" translate="apikeys.field.role"></th>
+						<th class="md-col-2" translate="apikeys.field.createdAt"></th>
+						<th class="md-col-2" translate="apikeys.field.lastAccess"></th>
+						<th class="md-col-1" translate="apikeys.field.enabled"></th>
+					</thead>
+					<tbody>
+						<tr class="clickable" ng-repeat="account in accounts">
+							<td ng-click="showDetail(account, $event)">{{account.username}}</td>
+							<td ng-click="showDetail(account, $event)">{{account.role}}</td>
+							<td ng-click="showDetail(account, $event)">{{account.createdAt | date:'yyyy.MM.dd HH:mm'}}</td>
+							<td ng-click="showDetail(account, $event)">{{account.lastAccessOn | date:'yyyy.MM.dd HH:mm'}}</td>
+							<td ng-click="showDetail(account, $event)">{{account.enabled | checkmark}}</td>
+						</tr>
+					</tbody>
+				</table>
+				<button class="btn btn-primary" ng-hide="isDirty" ng-click="newUser()" translate="apikeys.cmd.newUser"></button>
+
+			</div>
+			<div class="col-md-6 detailPanel">
+
+				<div ng-show="currentAccount" class="panel panel-default">
+					<div class="panel-heading configTitle">
+						<strong translate="apikeys.userCredentials"></strong>
+						<div class="panel-buttons-r">
+							<button class="btn btn-warning" ng-click="deleteUser(currentAccount)"><span class="glyphicon glyphicon-remove color-red" tooltip="Detail"></span> <span translate="cmd.delete"></span></button>
+						</div>
+					</div>
+					<div class="panel-body">
+						<label class="labelForm" translate="apikeys.field.username"></label>
+						<input type="text" class="form-control inlineAccount" ng-model="currentAccount.username" ng-change="setDirty()"/><br/>
+
+						<label class="labelForm" translate="apikeys.field.password"></label>  
+						<input type="text" class="form-control inlinePassword" ng-model="currentAccount.password" ng-change="setDirty()"/>
+						<button class="btn btn-default" ng-click="newPassword(currentAccount)" translate="apikeys.cmd.random"></button><br/>
+
+						<label class="labelForm" translate="apikeys.field.role"></label>
+						<select class="form-control inlineAccount" ng-model="currentAccount.role" 
+						        ng-options="role.key as role.key for role in roles" ng-change="setDirty()"/>
+						</select>
+
+						<div ng-show="!isAdding()">
+							<label class="labelForm" translate="apikeys.field.createdAt"></label>
+							<input type="text" class="form-control inlineAccount" ng-value="currentAccount.createdAt | date:'yyyy.MM.dd HH:mm'" readonly/>
+							<br/>
+
+
+							<label class="labelForm" translate="apikeys.field.lastAccess"></label>  
+							<input type="text" class="form-control inlineAccount" ng-value="currentAccount.lastAccessOn | date:'yyyy.MM.dd HH:mm'" readonly/>
+							<br/>
+						</div>
+
+						<label class="labelForm" for="checkEnabled">
+						</label> 
+						<label>
+							<input id="checkEnabled" type="checkbox" class="" 
+								   ng-click="setEnable(currentAccount, !currentAccount.enabled)"
+							       ng-model="currentAccount.enabled"/>
+							<span class="normalLabel" ng-show="currentAccount.enabled" translate="label.enabled"></span>
+							<span class="normalLabel" ng-show="!currentAccount.enabled" translate="label.disabled"></span>
+						</label>
+
+						<br/>
+
+						<label class="labelForm" translate="apikeys.field.description"></label>  
+						<textarea rows="3" class="form-control inlineDesc" ng-change="setDirty()" ng-model="currentAccount.description"></textarea>
+						<br/>
+					</div>
+					<div class="panel-footer configFooter">
+						<div class="panel-buttons-r">
+							<button class="btn btn-default" ng-show="isDirty" ng-click="cancelEdit()" translate="cmd.cancel"></button>
+							<button class="btn btn-primary" ng-show="isDirty" ng-click="updateUser(currentAccount)" translate="cmd.applyChanges"></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

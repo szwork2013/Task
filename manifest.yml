@@ -1,0 +1,4 @@
+---
+applications:
+- name: Task
+  command: node app/server.js
